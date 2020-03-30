@@ -314,7 +314,7 @@ var binaryHandle = function (evt) {
 
 
 // function that fills in sidebar statistics and calculates regular faces, vertices, and lines
-var postProcess = function(mesh, lines, vertices) {
+/*var postProcess = function(mesh, lines, vertices) {
 	var geometry = mesh.geometry;
 
 	// filling in barebone information from the stl file triangles
@@ -411,7 +411,7 @@ var postProcess = function(mesh, lines, vertices) {
 
 	// setup face selecting click event
 	faceSelectionSetup(regFaces, geometry);
-}
+}*/
 
 
 // function that removes previously loaded solids and canvas listener
