@@ -2,35 +2,48 @@
 var camerapZ=220;
 var camerapY=-50;
 var camerapX=-50;
+
 var scene = new THREE.Scene();
 scene.background = new THREE.Color(0xdddddd);
+// var viewSize=900;
+// var aspectRatio=(window.innerWidth-200)/window.innerHeight;
+//
+// var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize/4,aspectRatio*viewSize/4,viewSize/4,-viewSize/4,-1000,1000);
+// camera.position.set(-90,60,48);
 
-var camera = new THREE.PerspectiveCamera(50, (window.innerWidth - 200) / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(50, (window.innerWidth - 200) / window.innerHeight, 0.1, 5000);
 camera.position.x=-50;
 camera.position.y=-50;
 camera.position.z=220;
-var hlight = new THREE.AmbientLight(0x404040,100);
+//var hlight = new THREE.AmbientLight(0x404040,100);
 
-scene.add(hlight);
+//scene.add(hlight);
+//creacion de un plano
+var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
+var material=new THREE.MeshLambertMaterial({color:0x7F9AED, overdraw: 1, wireframe: true, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+var groundMesh = new THREE.Mesh(groundGeom, material);
+scene.add(groundMesh);
 
 var renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth - 200, window.innerHeight);
 document.body.appendChild( renderer.domElement );
 cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
-cameraControls.target.set(0, 0, 0);
+cameraControls.target.set(0, 31, 0);
 cameraControls.update();
 
-// maybe use lighting later -> need to use lambert or phong materials instead of basic
-// var ambientLight = new THREE.AmbientLight(0x330000);
-//  scene.add(ambientLight);
 
-// var pointLight = new THREE.PointLight(0xffffff);
-// pointLight.position.set( 100, 100, 100 );
-// scene.add( pointLight );
 
-// var directionalLight = new THREE.DirectionalLight(0xffffff);
-//  directionalLight.position.set(1, 1, 1).normalize();
-//  scene.add(directionalLight);
+//maybe use lighting later -> need to use lambert or phong materials instead of basic
+var ambientLight = new THREE.AmbientLight(0x330000,100);
+ scene.add(ambientLight);
+
+var pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set( 100, 100, 100 );
+scene.add( pointLight );
+
+var directionalLight = new THREE.DirectionalLight(0xffffff);
+ directionalLight.position.set(1, 1, 1).normalize();
+ scene.add(directionalLight);
 
 // three.js rendering loop
 
@@ -196,15 +209,20 @@ var asciiHandle = function (evt) {
 		face.color.setRGB(1,0,0);
 	});
 
-	// adding two versions of the geometry to the scene: wireframe and basic material
-	//var mesh1 = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({color: 0xffffff, vertexColors: THREE.FaceColors, opacity: 0.7, transparent: true}));
-  var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xfbfbfb}));
+
+	//var groundMesh = new THREE.Mesh(groundGeom, new THREE.MeshBasicMaterial({color: 0x777777,wireframe:true}));
+//var material=new THREE.MeshLambertMaterial({color:0x909090, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+
+
+
+	var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
+	//var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
 	//var mesh2 = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({color: 0xffff00, wireframe: true}));
-  var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0xffff00}));
+	var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0xFFC924, wireframe: false}));
 
 
-	scene.add(mesh1)
-	scene.add(mesh2)
+	scene.add(mesh1,groundMesh);
+	scene.add(mesh2,groundMesh);
 
 	// Filling statistics in sidebar and calculating regular faces, vertices, and lines
 	postProcess(mesh1, lines, vertices);
@@ -292,16 +310,18 @@ var binaryHandle = function (evt) {
 				face.color.setRGB(1,0,0);
 		});
 
-    var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
-    var groundMesh = new THREE.Mesh(groundGeom, new THREE.MeshBasicMaterial({color: 0x777777,wireframe:true}));
-    var material=new THREE.MeshLambertMaterial({color:0x909090, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+    // var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
+		// var material=new THREE.MeshLambertMaterial({color:0xFFE896, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+		// var groundMesh = new THREE.Mesh(groundGeom,material);
+    //var groundMesh = new THREE.Mesh(groundGeom, new THREE.MeshBasicMaterial({color: 0x777777,wireframe:true}));
+    //var material=new THREE.MeshLambertMaterial({color:0x909090, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
 
 
 
     var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
     //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
   	//var mesh2 = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({color: 0xffff00, wireframe: true}));
-    var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x000000,wireframe:true}));
+    var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0xFFC924,wireframe:false}));
 
     //scene.add(line);
 
