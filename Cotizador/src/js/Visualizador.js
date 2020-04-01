@@ -20,9 +20,10 @@ camera.position.z=220;
 //scene.add(hlight);
 //creacion de un plano
 var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
-var material=new THREE.MeshLambertMaterial({color:0x7F9AED, overdraw: 1, wireframe: true, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+var material=new THREE.MeshLambertMaterial({color:0x7F9AED, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
 var groundMesh = new THREE.Mesh(groundGeom, material);
 scene.add(groundMesh);
+
 
 var renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth - 200, window.innerHeight);
@@ -214,6 +215,8 @@ var asciiHandle = function (evt) {
 //var material=new THREE.MeshLambertMaterial({color:0x909090, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
 
 
+  // var edges = new THREE.EdgesGeometry( geometry );
+  // var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 
 	var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
 	//var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
@@ -222,6 +225,7 @@ var asciiHandle = function (evt) {
 
 
 	scene.add(mesh1,groundMesh);
+  scene.add( line );
 	scene.add(mesh2,groundMesh);
 
 	// Filling statistics in sidebar and calculating regular faces, vertices, and lines
@@ -317,6 +321,8 @@ var binaryHandle = function (evt) {
     //var material=new THREE.MeshLambertMaterial({color:0x909090, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
 
 
+    // var edges = new THREE.EdgesGeometry( geometry );
+    // var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 
     var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
     //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf}));
@@ -326,6 +332,7 @@ var binaryHandle = function (evt) {
     //scene.add(line);
 
 		scene.add(mesh1,groundMesh);
+  //  scene.add(line);
 		scene.add(mesh2,groundMesh);
 
 		postProcess(mesh1, lines, vertices);
