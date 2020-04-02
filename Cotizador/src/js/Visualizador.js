@@ -3,18 +3,21 @@
 var scene = new THREE.Scene();
 
 var materialSTL = new THREE.MeshLambertMaterial({color:0x595959})
-var materialPiso = new THREE.MeshLambertMaterial({color:0x3799E8})
+var materialPiso = new THREE.MeshPhongMaterial({color:0x3799E8})
 
 var camera = new THREE.PerspectiveCamera(75, (window.innerWidth - 200) / window.innerHeight, 0.1, 5000);
 //camera.position.x=-50;
 //camera.position.y=-50;
-camera.position.z=220;
+
 
 
 var renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setClearColor("#e5e5e5");
 renderer.setSize(window.innerWidth - 200, window.innerHeight);
+renderer.shadowMapEnabled =true;
+renderer.shadowMapType = THREE.BasicShadowMap;
 document.body.appendChild( renderer.domElement );
+
 
 cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
 cameraControls.target.set(0, 31, 0);
@@ -22,28 +25,35 @@ cameraControls.update();
 
 //creacion de un plano
 var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
-//var material=new THREE.MeshLambertMaterial({color:0x3799E8, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
 var groundMesh = new THREE.Mesh(groundGeom, materialPiso);
 groundMesh.position.x = 0;
 groundMesh.position.y = 0;
 groundMesh.position.z = 0;
+groundMesh.receiveShadow = true;
 scene.add(groundMesh);
 
 
 //maybe use lighting later -> need to use lambert or phong materials instead of basic
 //var ambientLight = new THREE.AmbientLight(0x330000,1000);
-var ambientLight = new THREE.AmbientLight(0x330000,2); 
+var ambientLight = new THREE.AmbientLight(0x330000,0.2); 
 scene.add(ambientLight);
 
 //var pointLight = new THREE.PointLight(0xffffff);
-var pointLight = new THREE.PointLight(0xDBDBDB);
+var pointLight = new THREE.PointLight(0xDBDBDB,0.8,18);
 pointLight.position.set( 0, 0, 250 );
+
+
 scene.add( pointLight );
 
 var directionalLight = new THREE.DirectionalLight(0xffffff);
 directionalLight.position.set(1, 1, 50).normalize();
+directionalLight.castShadow = true;
+directionalLight.shadowCameraNear = 0.1;
+directionalLight.shadowCameraFar = 25;
 scene.add(directionalLight);
 
+camera.position.z=220;
+camera.lookAt(new THREE.Vector3(0,1.8,0));
 // three.js rendering loop
 
 function render() {
@@ -215,6 +225,8 @@ var asciiHandle = function (evt) {
         mesh1.position.x=0;
         mesh1.position.y=0;
         mesh1.position.z=0;
+    	mesh1.receiveShadow = true;
+	    mesh1.castShadow = true;
 
 	//var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959, wireframe: false}));
     var mesh2 = new THREE.Mesh(geometry,materialSTL);
@@ -222,6 +234,8 @@ var asciiHandle = function (evt) {
         mesh2.position.x=0;
         mesh2.position.y=0;
         mesh2.position.z=0;
+    	mesh2.receiveShadow = true;
+	    mesh2.castShadow = true;
 
 
 	scene.add(mesh1,groundMesh);
@@ -321,12 +335,16 @@ var binaryHandle = function (evt) {
         mesh1.position.x=0;
         mesh1.position.y=0;
         mesh1.position.z=0;
+        mesh1.receiveShadow = true;
+	    mesh1.castShadow = true;
 
     //var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959,wireframe:false}));
     var mesh2 = new THREE.Mesh(geometry,materialSTL);
         mesh2.position.x=0;
         mesh2.position.y=0;
         mesh2.position.z=0;
+        mesh2.receiveShadow = true;
+	    mesh2.castShadow = true;
 
  
 
