@@ -2,11 +2,8 @@
 
 var scene = new THREE.Scene();
 
-// var viewSize=900;
-// var aspectRatio=(window.innerWidth-200)/window.innerHeight;
-//
-// var camera = new THREE.OrthographicCamera(-aspectRatio*viewSize/4,aspectRatio*viewSize/4,viewSize/4,-viewSize/4,-1000,1000);
-// camera.position.set(-90,60,48);
+var materialSTL = new THREE.MeshLambertMaterial({color:0x595959})
+var materialPiso = new THREE.MeshLambertMaterial({color:0x3799E8})
 
 var camera = new THREE.PerspectiveCamera(75, (window.innerWidth - 200) / window.innerHeight, 0.1, 5000);
 //camera.position.x=-50;
@@ -15,9 +12,7 @@ camera.position.z=220;
 
 
 var renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setClearColor("#ffffff");
-renderer.shadowMapEnabled=true;
-renderer.shadowMapType=THREE.PCFShadowMap;
+renderer.setClearColor("#e5e5e5");
 renderer.setSize(window.innerWidth - 200, window.innerHeight);
 document.body.appendChild( renderer.domElement );
 
@@ -27,10 +22,11 @@ cameraControls.update();
 
 //creacion de un plano
 var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
-var material=new THREE.MeshLambertMaterial({color:0x595959, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
-var groundMesh = new THREE.Mesh(groundGeom, material);
-groundMesh.castShadow = true; //default is false
-groundMesh.receiveShadow = true;
+//var material=new THREE.MeshLambertMaterial({color:0x3799E8, overdraw: 1, wireframe: false, shading:THREE.FlatShading, vertexColors: THREE.FaceColors});
+var groundMesh = new THREE.Mesh(groundGeom, materialPiso);
+groundMesh.position.x = 0;
+groundMesh.position.y = 0;
+groundMesh.position.z = 0;
 scene.add(groundMesh);
 
 
@@ -39,21 +35,14 @@ scene.add(groundMesh);
 var ambientLight = new THREE.AmbientLight(0x330000,2); 
 scene.add(ambientLight);
 
-var pointLight = new THREE.PointLight(0xffffff,1,100);
+//var pointLight = new THREE.PointLight(0xffffff);
+var pointLight = new THREE.PointLight(0xDBDBDB);
 pointLight.position.set( 0, 0, 250 );
 scene.add( pointLight );
 
-
 var directionalLight = new THREE.DirectionalLight(0xffffff);
 directionalLight.position.set(1, 1, 50).normalize();
-directionalLight.castShadow=true;
 scene.add(directionalLight);
-
-directionalLight.shadowMapWidth=512;
-directionalLight.shadowMapHeight=512;
-
-directionalLight.shadowCameraNear=0.5;
-directionalLight.shadowCameraFar=500;
 
 // three.js rendering loop
 
@@ -220,14 +209,20 @@ var asciiHandle = function (evt) {
 	});
 
 
-    var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,vertexColors: THREE.FaceColors, opacity: 0.7, transparent: false}));
+    //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,vertexColors: THREE.FaceColors, opacity: 0.7, transparent: false}));
+    var mesh1 = new THREE.Mesh(geometry,materialSTL);
     
-    mesh1.castShadow=true;
-    mesh1.receiveShadow=true;
+        mesh1.position.x=0;
+        mesh1.position.y=0;
+        mesh1.position.z=0;
 
-	var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959, wireframe: false}));
-    mesh2.castShadow=true;
-    mesh2.receiveShadow=true;
+	//var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959, wireframe: false}));
+    var mesh2 = new THREE.Mesh(geometry,materialSTL);
+    
+        mesh2.position.x=0;
+        mesh2.position.y=0;
+        mesh2.position.z=0;
+
 
 	scene.add(mesh1,groundMesh);
  
@@ -320,13 +315,18 @@ var binaryHandle = function (evt) {
 		});
 
 
-    var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,solid:true,vertexColors: 0x12aa00, opacity: 0.9, transparent: false}));
-    mesh1.castShadow=true;
-    mesh1.receiveShadow=true;
+    //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,solid:true,vertexColors: 0x12aa00, opacity: 0.9, transparent: false}));
+    var mesh1 = new THREE.Mesh(geometry,materialSTL);
+        
+        mesh1.position.x=0;
+        mesh1.position.y=0;
+        mesh1.position.z=0;
 
-    var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959,wireframe:false}));
-    mesh2.castShadow=true;
-    mesh2.receiveShadow=true;
+    //var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959,wireframe:false}));
+    var mesh2 = new THREE.Mesh(geometry,materialSTL);
+        mesh2.position.x=0;
+        mesh2.position.y=0;
+        mesh2.position.z=0;
 
  
 
@@ -334,7 +334,7 @@ var binaryHandle = function (evt) {
   //  scene.add(line);
 		scene.add(mesh2,groundMesh);
 
-	//	postProcess(mesh1, lines, vertices);
+		//postProcess(mesh1, lines, vertices);
 	}
 }
 
