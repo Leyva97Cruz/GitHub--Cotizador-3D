@@ -222,20 +222,20 @@ var asciiHandle = function (evt) {
     //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,vertexColors: THREE.FaceColors, opacity: 0.7, transparent: false}));
     var mesh1 = new THREE.Mesh(geometry,materialSTL);
     
-        mesh1.position.x=0;
-        mesh1.position.y=0;
-        mesh1.position.z=0;
+        mesh1.position.set(0,0,0);
     	mesh1.receiveShadow = true;
 	    mesh1.castShadow = true;
+        
+
 
 	//var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959, wireframe: false}));
     var mesh2 = new THREE.Mesh(geometry,materialSTL);
     
-        mesh2.position.x=0;
-        mesh2.position.y=0;
-        mesh2.position.z=0;
+        mesh2.position.set(0,0,0);
     	mesh2.receiveShadow = true;
 	    mesh2.castShadow = true;
+    
+
 
 
 	scene.add(mesh1,groundMesh);
@@ -332,20 +332,19 @@ var binaryHandle = function (evt) {
     //var mesh1 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xbfbfbf,solid:true,vertexColors: 0x12aa00, opacity: 0.9, transparent: false}));
     var mesh1 = new THREE.Mesh(geometry,materialSTL);
         
-        mesh1.position.x=0;
-        mesh1.position.y=0;
-        mesh1.position.z=0;
+        mesh1.position.set(0,0,0);
         mesh1.receiveShadow = true;
 	    mesh1.castShadow = true;
+        
 
     //var mesh2 = new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x595959,wireframe:false}));
     var mesh2 = new THREE.Mesh(geometry,materialSTL);
-        mesh2.position.x=0;
-        mesh2.position.y=0;
-        mesh2.position.z=0;
+        mesh2.position.set(0,0,0);
         mesh2.receiveShadow = true;
 	    mesh2.castShadow = true;
+        
 
+            
  
 
 		scene.add(mesh1,groundMesh);
