@@ -77,11 +77,13 @@ function handleStlFile(files) {
 		if (fileName.substring(fileName.length - 4,fileName.length) === ".stl") {
 			// read as text -> if file starts with solid, it is ascii format otherwise it is binary
 			var reader = new FileReader();
+
 			reader.readAsText(file, "UTF-8");
 
 			reader.onload = function (evt) {
 				// remove previous solid if any
 				removePrevious();
+
 
 				// initialize three.js geometry to put all faces in
 				window.stl_reader.geometry = new THREE.Geometry();
