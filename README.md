@@ -1,9 +1,13 @@
 GitHub--Cotizador-3D
+
 Requerimientos
  -- Node js
  -- Navegador web
  
- INTALAR LAS DEPENDECIAS
+Descargar el proyecto descomprimir 
+ 
+INSTALAR LAS DEPENDECIAS
+
 ejecutar los siguientes comandos(en la terminal abierta en la carpeta src):
 
      npm i express
