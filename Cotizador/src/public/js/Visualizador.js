@@ -23,7 +23,6 @@ cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
 cameraControls.target.set(0, 31, 0);
 cameraControls.update();
 
-//creacion de un plano
 var groundGeom = new THREE.PlaneGeometry(220, 220, 22, 22);
 var groundMesh = new THREE.Mesh(groundGeom, materialPiso);
 groundMesh.position.x = 0;
@@ -356,107 +355,6 @@ var binaryHandle = function (evt) {
 		//postProcess(mesh1, lines, vertices);
 	}
 }
-
-
-// function that fills in sidebar statistics and calculates regular faces, vertices, and lines
-/*var postProcess = function(mesh, lines, vertices) {
-	var geometry = mesh.geometry;
-
-	// filling in barebone information from the stl file triangles
-	var faceNum = geometry.faces.length;
-	$("div.triangle-face-count").html("Triangle Faces: " + faceNum);
-
-	var vertNum = geometry.vertices.length
-	$("div.triangle-vertex-count").html("Triangle Vertices: " + vertNum);
-
-	var lineNum = 0
-	for (var index in lines) {
-		lineNum += 1;
-	}
-	$("div.triangle-line-count").html("Triangle Lines: " + lineNum);
-
-	// faceConnections is an object that saves which face is connected to which face
-	// faceConnections[face 1] = [face 2, face 3, ...]
-	var faceConnections = {};
-
-	// connecting the faces using the lines object
-	for (var index in lines) {
-		if (faceConnections[lines[index][0]]) {
-			faceConnections[lines[index][0]].push(lines[index][1]);
-		} else {
-			faceConnections[lines[index][0]] = [lines[index][1]];
-		}
-
-		if (faceConnections[lines[index][1]]) {
-			faceConnections[lines[index][1]].push(lines[index][0]);
-		} else {
-			faceConnections[lines[index][1]] = [lines[index][0]];
-		}
-	}
-
-	// finding the number of regular faces using the faceConnection objects and face normals
-	// For each face connected to the current face, if the normal is the same, then it is on the same regular face.
-	// This is done until all faces and included in some regular face.
-	var checked = {};
-	var regFaces = [];
-
-	var recursiveFaceConnect = function(index) {
-		faceConnections[index].forEach(function(el) {
-			if (!checked[el]) {
-				var currFaceNormal = geometry.faces[el].normal;
-				if (isSameVectorOrVertex(currFaceNormal, normal)) {
-					face.push(el);
-					checked[el] = true;
-
-					recursiveFaceConnect(el);
-				}
-			}
-		});
-	};
-
-	for (var index in faceConnections) {
-		index = parseInt(index)
-		if (!checked[index]) {
-			var face = [index];
-			var normal = geometry.faces[index].normal;
-			checked[index] = true;
-			recursiveFaceConnect(index)
-
-			regFaces.push(face);
-		}
-	}
-
-	$("div.regular-face-count").html("Regular Faces: " + regFaces.length);
-
-	// finding the number of regular vertices using the vertices object
-	// Vertices that only have one normal associated with it is not a regular vertex.
-	// In other words, if a vertex is only connected to faces with the same normal vector, is it not a regular vertex.
-	var regVertCount = 0;
-	for (var index in vertices) {
-		if (vertices[index].length > 1) {
-			regVertCount += 1
-		}
-	}
-
-	$("div.regular-vertex-count").html("Regular Vertices: " + regVertCount);
-
-	// finding the number of regular lines using the lines object
-	// Lines that connect two faces with the same normals is not a regular line
-	var regLineCount = 0;
-	for (var index in lines) {
-		var normal1 = geometry.faces[lines[index][0]].normal;
-		var normal2 = geometry.faces[lines[index][1]].normal;
-
-		if (!isSameVectorOrVertex(normal1, normal2)) {
-			regLineCount += 1;
-		}
-	}
-
-	$("div.regular-line-count").html("Regular Lines: " + regLineCount);
-
-	// setup face selecting click event
-	faceSelectionSetup(regFaces, geometry);
-}*/
 
 
 // function that removes previously loaded solids and canvas listener
