@@ -4,7 +4,7 @@ Requerimientos
  -- Node js
  -- Navegador web
  
-Descargar el proyecto descomprimir 
+Descargar el proyecto o clonar descomprimir 
  
 INSTALAR LAS DEPENDECIAS
 
